@@ -7,8 +7,8 @@
 
 import React, { useEffect } from "react";
 
-import { LoginScreen } from "./src/screens/LoginScreen";
 import { dataSource } from "./src/database/connection";
+import { Routes } from "./src/routes";
 
 function App(): JSX.Element {
   useEffect(function initializeDb() {
@@ -19,7 +19,7 @@ function App(): JSX.Element {
     connect();
   }, []);
 
-  return <LoginScreen />;
+  return <Routes />;
 }
 
 export default App;
