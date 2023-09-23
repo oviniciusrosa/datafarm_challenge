@@ -1,10 +1,10 @@
 import { typeORMDriver } from "react-native-quick-sqlite";
 import { DataSource } from "typeorm";
-import { Person } from "./models/Person";
+import { TABLE_LIST } from "./constants/table";
 
 export const dataSource = new DataSource({
   database: "quicksqlitetest-typeorm.db",
-  entities: [Person],
+  entities: TABLE_LIST,
   location: ".",
   logging: [],
   synchronize: true,
