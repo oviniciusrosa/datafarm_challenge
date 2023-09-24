@@ -9,6 +9,8 @@ import React, { useEffect } from "react";
 
 import { dataSource } from "./src/database/connection";
 import { Routes } from "./src/routes";
+import { ThemeProvider } from "styled-components/native";
+import theme from "./src/theme";
 
 function App(): JSX.Element {
   useEffect(function initializeDb() {
@@ -19,7 +21,11 @@ function App(): JSX.Element {
     connect();
   }, []);
 
-  return <Routes />;
+  return (
+    <ThemeProvider theme={theme}>
+      <Routes />
+    </ThemeProvider>
+  );
 }
 
 export default App;
