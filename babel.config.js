@@ -8,6 +8,13 @@ module.exports = {
         root: ["./src"],
         alias: {
           "react-native-sqlite-storage": "react-native-quick-sqlite",
+          "~/assets": "./src/assets",
+          "~/contexts": "./src/contexts",
+          "~/screens": "./src/screens",
+          "~/routes": "./src/routes",
+          "~/services": "./src/services",
+          "~/theme": "./src/theme",
+          "~/hooks": "./src/hooks",
         },
       },
     ],
