@@ -5,6 +5,7 @@ module.exports = {
     [
       "module-resolver",
       {
+        root: ["./src"],
         alias: {
           "react-native-sqlite-storage": "react-native-quick-sqlite",
         },
