@@ -3,9 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { LoginScreen } from "../screens/LoginScreen";
 import { HomeTabs } from "./tabs/HomeTabs";
-import { RootStackParamList } from "./@types/RootStackParamList";
 
-const RootStack = createStackNavigator<RootStackParamList>();
+const RootStack = createStackNavigator();
 
 export function Routes() {
   return (
