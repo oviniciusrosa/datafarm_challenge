@@ -12,6 +12,8 @@ module.exports = {
           "~/contexts": "./src/contexts/",
           "~/components": "./src/components/",
           "~/constants": "./src/constants/",
+          "~/contexts": "./src/contexts/",
+          "~/external": "./src/external/",
           "~/screens": "./src/screens/",
           "~/routes": "./src/routes/",
           "~/services": "./src/services/",
