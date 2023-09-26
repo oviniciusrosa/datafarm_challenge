@@ -1,17 +1,14 @@
-import { Keyboard, TextInputProps } from "react-native";
+import { Keyboard } from "react-native";
 import * as S from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useKeyboardDismissListenable } from "~/hooks/useKeyboardDismissListenable";
 
-import theme from "~/theme";
 import { useBorderColorAnimatedStyle } from "./hooks/useBorderColorAnimatedStyle";
 import { useLabelAnimatedStyle } from "./hooks/useLabelAnimatedStyle";
+import { InputProps } from "./@types";
 
-interface Props extends TextInputProps {}
-
-export function Input({ value, onChange, ...rest }: Props) {
+export function Input({ label, value, onChangeText, ...rest }: InputProps) {
   useKeyboardDismissListenable(removeFocus);
-
   const [focused, setFocused] = useState<boolean>(false);
 
   const [
@@ -34,7 +31,7 @@ export function Input({ value, onChange, ...rest }: Props) {
 
   function resetAnimations() {
     resetBorderAnimation();
-    resetLabelAnimation();
+    if (!value) resetLabelAnimation();
   }
 
   function requestFocus() {
@@ -48,15 +45,18 @@ export function Input({ value, onChange, ...rest }: Props) {
     Keyboard.dismiss();
   }
 
+  useEffect(() => {
+    if (!!value) requestFocus();
+  }, [value]);
+
   return (
     <>
       <S.InputWrapper style={borderStyle}>
-        <S.Label style={labelStyle}>Email</S.Label>
+        <S.Label style={labelStyle}>{label}</S.Label>
         <S.InputContainer
           onFocus={requestFocus}
-          onBlur={removeFocus}
           value={value}
-          onChange={onChange}
+          onChangeText={onChangeText}
           {...rest}
         />
       </S.InputWrapper>
