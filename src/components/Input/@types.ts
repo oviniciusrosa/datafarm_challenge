@@ -1,5 +1,7 @@
 import { TextInputProps } from "react-native";
 
-export interface InputContainerProps extends TextInputProps {
-  focused: boolean;
+export interface InputProps extends TextInputProps {
+  label: string;
+  value: string;
+  onChangeText: (text: string) => void;
 }
