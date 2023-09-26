@@ -1,1 +1,3 @@
-declare module "*.png";
+export declare global {
+  type VoidCallback = () => void;
+}

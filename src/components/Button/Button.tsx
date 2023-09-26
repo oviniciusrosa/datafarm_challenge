@@ -3,7 +3,7 @@ import * as S from "./styles";
 
 interface Props extends TouchableOpacityProps {
   children: string;
-  onPress: () => void;
+  onPress: VoidCallback;
 }
 
 export function Button({ children, onPress, ...rest }: Props) {
