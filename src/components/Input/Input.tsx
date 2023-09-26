@@ -7,7 +7,15 @@ import { useBorderColorAnimatedStyle } from "./hooks/useBorderColorAnimatedStyle
 import { useLabelAnimatedStyle } from "./hooks/useLabelAnimatedStyle";
 import { InputProps } from "./@types";
 
-export function Input({ label, value, onChangeText, ...rest }: InputProps) {
+export function Input({
+  label,
+  value,
+  onChangeText,
+  inputStyle,
+  style,
+  SuffixIcon = () => <></>,
+  ...rest
+}: InputProps) {
   useKeyboardDismissListenable(removeFocus);
   const [focused, setFocused] = useState<boolean>(false);
 
@@ -51,14 +59,16 @@ export function Input({ label, value, onChangeText, ...rest }: InputProps) {
 
   return (
     <>
-      <S.InputWrapper style={borderStyle}>
+      <S.InputWrapper style={[borderStyle, style]}>
         <S.Label style={labelStyle}>{label}</S.Label>
         <S.InputContainer
+          {...rest}
           onFocus={requestFocus}
           value={value}
           onChangeText={onChangeText}
-          {...rest}
+          style={inputStyle}
         />
+        <SuffixIcon />
       </S.InputWrapper>
       {focused && <S.TouchableArea onPress={removeFocus} />}
     </>

@@ -16,20 +16,21 @@ export function InputPassword(props: InputProps) {
   }
 
   return (
-    <S.PasswordWrapper>
+    <>
       <Input
-        style={{ paddingRight: 40 }}
-        secureTextEntry={!showPassword}
         {...props}
-      />
-
-      <S.TouchableSuffix activeOpacity={0.7} onPress={changeVisibility}>
-        {showPassword ? (
-          <Icon.EyeOff color={colors.grey_80} width={20} />
-        ) : (
-          <Icon.Eye color={colors.grey_80} width={20} />
+        inputStyle={{ paddingRight: 40 }}
+        secureTextEntry={!showPassword}
+        SuffixIcon={() => (
+          <S.TouchableSuffix activeOpacity={0.7} onPress={changeVisibility}>
+            {showPassword ? (
+              <Icon.EyeOff color={colors.grey_80} width={20} />
+            ) : (
+              <Icon.Eye color={colors.grey_80} width={20} />
+            )}
+          </S.TouchableSuffix>
         )}
-      </S.TouchableSuffix>
-    </S.PasswordWrapper>
+      />
+    </>
   );
 }

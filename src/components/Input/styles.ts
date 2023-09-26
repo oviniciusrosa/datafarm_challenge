@@ -7,6 +7,7 @@ const SCREEN_WIDTH = Dimensions.get("screen").width;
 const SCREEN_HEIGHT = Dimensions.get("screen").height;
 
 export const InputWrapper = styled(Animated.View)`
+  position: static;
   margin-vertical: 5px;
 
   border-bottom-width: 1px;
@@ -31,7 +32,9 @@ export const TouchableArea = styled.Pressable`
   z-index: 1;
 `;
 
-export const PasswordWrapper = styled.View``;
+export const PasswordWrapper = styled.View`
+  position: static;
+`;
 
 export const TouchableSuffix = styled.TouchableOpacity`
   position: absolute;
