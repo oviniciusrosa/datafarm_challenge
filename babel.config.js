@@ -11,6 +11,7 @@ module.exports = {
           "~/assets": "./src/assets/",
           "~/contexts": "./src/contexts/",
           "~/components": "./src/components/",
+          "~/constants": "./src/constants/",
           "~/screens": "./src/screens/",
           "~/routes": "./src/routes/",
           "~/services": "./src/services/",
