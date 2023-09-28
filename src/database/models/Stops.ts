@@ -1,5 +1,7 @@
 import { Entity, Column, BaseEntity, Generated, PrimaryColumn } from "typeorm";
 
+/// TODO: Adicionar createdAt
+
 @Entity("stops")
 export class Stops extends BaseEntity {
   @PrimaryColumn("text") @Generated("uuid") uuid: string;

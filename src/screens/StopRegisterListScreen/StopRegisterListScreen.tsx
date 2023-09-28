@@ -1,10 +1,10 @@
-import { Text } from "react-native";
-import { Container } from "./styles";
+import { StopList } from "./components";
+import * as S from "./styles";
 
 export function StopRegisterListScreen() {
   return (
-    <Container>
-      <Text>StopRegisterListScreen</Text>
-    </Container>
+    <S.Container>
+      <StopList />
+    </S.Container>
   );
 }
