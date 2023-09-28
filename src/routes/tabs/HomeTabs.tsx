@@ -7,8 +7,16 @@ const Tab = createBottomTabNavigator();
 export function HomeTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="StopRegisterList" component={StopRegisterListScreen} />
-      <Tab.Screen name="StopRegistration" component={StopRegistrationScreen} />
+      <Tab.Screen
+        name="StopRegisterList"
+        component={StopRegisterListScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="StopRegistration"
+        component={StopRegistrationScreen}
+        options={{ headerShown: false }}
+      />
     </Tab.Navigator>
   );
 }
