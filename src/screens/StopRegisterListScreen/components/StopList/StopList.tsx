@@ -1,51 +1,27 @@
-import { FlatList, Text } from "react-native";
-import { useResources } from "~/contexts/resources";
+import { FlatList, View, Text } from "react-native";
 import { StopItem } from "../StopItem";
+import { Divider } from "~/components";
 
-import { Divider, SearchInput } from "~/components";
-import { useEffect, useMemo, useState } from "react";
+import { IStopFilled } from "~/models/IStops";
 
-export function StopList() {
-  const [search, setSearch] = useState("");
-  const { stops } = useResources();
+interface Props {
+  list: IStopFilled[];
+}
 
-  const filteredList = useMemo(() => {
-    return stops.filter(item => {
-      if (search === "") return item;
-
-      if (item.farm.name.toLowerCase().includes(search.toLocaleLowerCase())) {
-        return item;
-      }
-    });
-  }, [search]);
-
+export function StopList({ list }: Props) {
   return (
     <FlatList
+      keyboardDismissMode={"none"}
       showsVerticalScrollIndicator={false}
-      data={filteredList}
-      extraData={filteredList}
+      data={list}
       renderItem={({ item }) => <StopItem key={item.uuid} item={item} />}
       keyExtractor={item => item.uuid}
       ItemSeparatorComponent={Divider}
-      style={{ paddingVertical: 25 }}
-      contentContainerStyle={{ paddingBottom: 50 }}
-      ListHeaderComponent={() => (
-        <SearchComponent onChange={setSearch} defaultValue={search} />
+      ListEmptyComponent={() => (
+        <View style={{ flex: 1, backgroundColor: "white" }}>
+          <Text>Nenhum registro encontrado...</Text>
+        </View>
       )}
-    />
-  );
-}
-
-function SearchComponent({ onChange, defaultValue }) {
-  const [search, setSearch] = useState(defaultValue);
-
-  return (
-    <SearchInput
-      value={search}
-      onChangeText={setSearch}
-      placeholder="Localizar registros..."
-      style={{ marginBottom: 30 }}
-      onEndEditing={() => onChange(search)}
     />
   );
 }
