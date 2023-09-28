@@ -4,6 +4,7 @@ import * as S from "./styles";
 import { useMemo, useState } from "react";
 import { useResources } from "~/contexts/resources";
 import { IStopFilled } from "~/models/IStops";
+import { EntranceFadeIn } from "~/constants/EntranceFadeIn";
 
 export function StopRegisterListScreen() {
   const [search, setSearch] = useState("");
@@ -20,7 +21,7 @@ export function StopRegisterListScreen() {
   }, [search]);
 
   return (
-    <S.Container>
+    <S.Container entering={EntranceFadeIn}>
       <SearchInput
         value={search}
         onChangeText={setSearch}
