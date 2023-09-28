@@ -11,6 +11,7 @@ import { dataSource } from "./src/database/connection";
 import { Routes } from "./src/routes";
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/theme";
+import ResourcesProvider from "~/contexts/resources";
 
 function App(): JSX.Element {
   useEffect(function initializeDb() {
@@ -18,12 +19,16 @@ function App(): JSX.Element {
       await dataSource.initialize();
     };
 
-    connect();
+    if (!dataSource.isInitialized) {
+      connect();
+    }
   }, []);
 
   return (
     <ThemeProvider theme={theme}>
-      <Routes />
+      <ResourcesProvider>
+        <Routes />
+      </ResourcesProvider>
     </ThemeProvider>
   );
 }
