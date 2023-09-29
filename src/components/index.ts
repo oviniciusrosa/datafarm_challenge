@@ -4,3 +4,4 @@ export * from "./Input";
 export * from "./Icon";
 export * from "./Divider";
 export * from "./SearchInput";
+export * from "./Sheet";
