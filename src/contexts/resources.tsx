@@ -1,4 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
+import { useResourcesData } from "~/hooks/data/useResourcesData";
 import { IStop, IStopFilled } from "~/models/IStops";
 
 interface ResourcesContextProps {
@@ -13,6 +14,8 @@ const ResourcesContext = createContext<ResourcesContextProps>(
 type Props = { children: ReactNode };
 
 export default function ResourcesProvider({ children }: Props) {
+  const { insertResources } = useResourcesData();
+
   const [stops, setStops] = useState<IStopFilled[]>([
     {
       uuid: "ghdusiahuidsa",
