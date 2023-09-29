@@ -4,6 +4,6 @@ import { Entity, Column, BaseEntity, PrimaryColumn } from "typeorm";
 export class Machineries extends BaseEntity {
   @PrimaryColumn("int") id: number;
   @Column("text") name: string;
-  @Column("text") serialNumber: string;
+  @Column("text", { nullable: true }) serialNumber: string;
   @Column("int") growerId: number;
 }

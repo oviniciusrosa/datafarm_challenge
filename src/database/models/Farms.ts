@@ -1,4 +1,11 @@
-import { Entity, Column, BaseEntity, PrimaryColumn, OneToMany } from "typeorm";
+import {
+  Entity,
+  Column,
+  BaseEntity,
+  PrimaryColumn,
+  OneToMany,
+  JoinColumn,
+} from "typeorm";
 import { Fields } from "./Fields";
 
 @Entity("farms")
@@ -7,5 +14,9 @@ export class Farms extends BaseEntity {
   @Column("text") name: string;
   @Column("text") growerName: string;
 
-  @OneToMany(_ => Fields, fields => fields.idFarm) fields: Fields[];
+  @OneToMany(_ => Fields, fields => fields.farm, {
+    cascade: true,
+  })
+  @JoinColumn()
+  fields: Fields[];
 }
