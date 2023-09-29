@@ -12,6 +12,8 @@ import { Routes } from "./src/routes";
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/theme";
 import ResourcesProvider from "~/contexts/resources";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 function App(): JSX.Element {
   useEffect(function initializeDb() {
@@ -27,7 +29,11 @@ function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <ResourcesProvider>
-        <Routes />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <BottomSheetModalProvider>
+            <Routes />
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView>
       </ResourcesProvider>
     </ThemeProvider>
   );

@@ -1,22 +1,39 @@
-import BottomSheet from "@gorhom/bottom-sheet";
-import { ReactElement } from "react";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { ReactElement, useCallback, useEffect, useRef } from "react";
+
+import * as S from "./styles";
+import { View } from "react-native";
 
 interface Props {
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
   open: boolean;
   onClose: VoidCallback;
 }
 
 export function Sheet({ open, onClose, children }: Props) {
-  if (!open) return <></>;
+  const sheetRef = useRef<BottomSheetModal>(null);
+
+  const handleClose = useCallback(() => {
+    sheetRef.current.close();
+    setTimeout(onClose, 400);
+  }, []);
+
+  useEffect(() => {
+    if (open) sheetRef.current.present();
+    else handleClose();
+  }, [open]);
 
   return (
-    <BottomSheet
+    <BottomSheetModal
+      ref={sheetRef}
       index={0}
-      snapPoints={["98%"]}
-      enablePanDownToClose
-      onClose={onClose}>
-      {children}
-    </BottomSheet>
+      snapPoints={["50%", "95%"]}
+      backdropComponent={() => (
+        <S.OverlayWrapper onPress={handleClose}>
+          <S.Overlay />
+        </S.OverlayWrapper>
+      )}>
+      <View style={{ zIndex: 10, flex: 1 }}>{children}</View>
+    </BottomSheetModal>
   );
 }
