@@ -7,7 +7,7 @@ export default {
 
     /* SECONDARY */
     secondary_500: "#FDA633",
-    secondary_300: "#FDA633",
+    secondary_300: "#FEC687",
 
     /* NEUTRAL */
     black: "#000",

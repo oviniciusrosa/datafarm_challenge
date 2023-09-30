@@ -34,11 +34,9 @@ export const Row = styled.View`
 `;
 
 export const ActionsContainer = styled.View`
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
 
-  width: ${SCREEN_WIDTH}px;
-  padding-horizontal: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 `;

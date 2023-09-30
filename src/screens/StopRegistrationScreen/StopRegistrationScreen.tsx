@@ -12,20 +12,15 @@ import { useNavigation } from "@react-navigation/native";
 import { useMemo, useState } from "react";
 import { IOption } from "~/components/Select/@types";
 import { IStop } from "~/models/IStops";
-import { SelectReason, StopNotes } from "./components";
-import { useKeyboardOpenedListenable } from "~/hooks/useKeyboardOpenedListenable";
-import { useKeyboardDismissListenable } from "~/hooks/useKeyboardDismissListenable";
+import { SelectReason, StopNotes, TimeSetter } from "./components";
+import { IResourceFarm } from "~/models/IResources";
 
 const { Heading } = Typography;
 
 type SelectFieldName = "idFarm" | "idField" | "idMachinery" | "idReason";
 
 export function StopRegistrationScreen() {
-  const [stop, setStop] = useState<IStop | null>(null);
-
-  const [hideActions, setHideActions] = useState<boolean>(false);
-  useKeyboardOpenedListenable(() => setHideActions(true));
-  useKeyboardDismissListenable(() => setHideActions(false));
+  const [stop, setStop] = useState<IStop | null>();
 
   const navigation = useNavigation();
   const { resources } = useResources();
@@ -47,6 +42,16 @@ export function StopRegistrationScreen() {
     [resources.farms]
   );
 
+  const fields = useMemo<IOption[]>(() => {
+    if (!stop?.idFarm) return [];
+
+    const farm: IResourceFarm = resources.farms.find(
+      item => item.id === stop.idFarm
+    );
+
+    return farm.fields.map(item => ({ value: item.id, label: item.name }));
+  }, [resources.farms, stop?.idFarm]);
+
   function handleUpdate(name: SelectFieldName) {
     return function (option: IOption) {
       setStop(current => ({
@@ -67,6 +72,13 @@ export function StopRegistrationScreen() {
     setStop(current => ({
       ...current,
       note,
+    }));
+  }
+
+  function handleMinute(minutes: number) {
+    setStop(current => ({
+      ...current,
+      minutes,
     }));
   }
 
@@ -95,9 +107,10 @@ export function StopRegistrationScreen() {
             style={{ flex: 5 }}
           />
           <Select
+            key={stop?.idFarm}
             label="Talhão"
             onChange={handleUpdate("idField")}
-            options={[]}
+            options={fields}
             style={{ flex: 2 }}
           />
         </S.Row>
@@ -105,13 +118,14 @@ export function StopRegistrationScreen() {
         <SelectReason onChange={handleChangeReason} />
 
         <StopNotes onChange={handleChangeNote} />
-      </S.ScrollableContent>
 
-      {!hideActions && (
         <S.ActionsContainer>
-          <Button onPress={() => console.log(stop)}>Salvar</Button>
+          <TimeSetter onChange={handleMinute} />
+          <Button onPress={() => console.log(stop)} style={{ flex: 1 }}>
+            Salvar
+          </Button>
         </S.ActionsContainer>
-      )}
+      </S.ScrollableContent>
     </S.Container>
   );
 }
