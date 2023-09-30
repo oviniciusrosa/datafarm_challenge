@@ -30,6 +30,7 @@ export function SelectReason({ onChange }: Props) {
       <S.ListContainer>
         {resources.reasons.map(reason => (
           <TouchableOpacity
+            key={reason.id}
             activeOpacity={0.7}
             onPress={() => handleSelect(reason)}>
             <S.ReasonItem
