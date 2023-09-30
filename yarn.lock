@@ -2053,6 +2053,14 @@
   resolved "https://registry.yarnpkg.com/@types/hammerjs/-/hammerjs-2.0.42.tgz#d7a53edbc51b2c13a9a759c45d7b5e61243d7dba"
   integrity sha512-Xxk14BrwHnGi0xlURPRb+Y0UNn2w3cTkeFm7pKMsYOaNgH/kabbJLhcBoNIodwsbTz7Z8KcWjtDvlGH0nc0U9w==
 
+"@types/hoist-non-react-statics@*":
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#dc1e9ded53375d37603c479cc12c693b0878aa2a"
+  integrity sha512-YIQtIg4PKr7ZyqNPZObpxfHsHEmuB8dXCxd6qVcGuQVDK2bpsF7bYNnBJ4Nn7giuACZg+WewExgrtAJ3XnA4Xw==
+  dependencies:
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.4.tgz#8467d4b3c087805d63580480890791277ce35c44"
@@ -2095,6 +2103,13 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.6.tgz#bbf819813d6be21011b8f5801058498bec555572"
   integrity sha512-RK/kBbYOQQHLYj9Z95eh7S6t7gq4Ojt/NT8HTk8bWVhA5DaF+5SMnxHKkP4gPNN3wAZkKP+VjAf0ebtYzf+fxg==
 
+"@types/react-native@^0.70":
+  version "0.70.15"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.70.15.tgz#82900eae7fe7100329e2b7a61d9c000805e564ae"
+  integrity sha512-wHrMQd65odOFbejFSDF7riocwLGEjkoJCF3GhH2a1vKqWbCExH361AZa/1GMG8gijAP86hkjF9gHZFHepEXaZA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-test-renderer@^18.0.2":
   version "18.0.2"
   resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-18.0.2.tgz#44243977eec18ab8cda88d8977437f47a0d3fdbe"
@@ -2125,6 +2140,24 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.1.tgz#20f18294f797f2209b5f65c8e3b5c8e8261d127c"
   integrity sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==
+
+"@types/styled-components-react-native@^5.2.3":
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/@types/styled-components-react-native/-/styled-components-react-native-5.2.3.tgz#5aab01b418220ecf519c8fc680c45e7f9cd70ee2"
+  integrity sha512-LlLf0q4a20LGkABcRcE7xLmX67g3S9gCK9/IN/LJ9QzCQY7m8x9zsTpD0uxNovHUtn/6xjbOGUZ5+oz8fi8+Ag==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "^0.70"
+    "@types/styled-components" "*"
+
+"@types/styled-components@*":
+  version "5.1.28"
+  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-5.1.28.tgz#3b86c4d373924ff6976de788843cab445d9ab15b"
+  integrity sha512-nu0VKNybkjvUqJAXWtRqKd7j3iRUl8GbYSTvZNuIBJcw/HUp1Y4QUXNLlj7gcnRV/t784JnHAlvRnSnE3nPbJA==
+  dependencies:
+    "@types/hoist-non-react-statics" "*"
+    "@types/react" "*"
+    csstype "^3.0.2"
 
 "@types/stylis@^4.0.2":
   version "4.2.0"

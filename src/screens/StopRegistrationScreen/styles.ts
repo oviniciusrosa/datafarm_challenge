@@ -1,7 +1,44 @@
+import { Dimensions } from "react-native";
+import Animated from "react-native-reanimated";
 import styled from "styled-components/native";
+import { EntranceFadeIn } from "~/constants/EntranceFadeIn";
 
-export const Container = styled.View`
+const { width: SCREEN_WIDTH } = Dimensions.get("screen");
+
+export const Container = styled(Animated.View).attrs({
+  entering: EntranceFadeIn,
+})`
+  padding-top: 25px;
+  padding-horizontal: 20px;
+
   flex: 1;
+`;
+
+export const Header = styled.View`
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+
+  gap: 15px;
+`;
+
+export const ScrollableContent = styled.ScrollView`
+  padding-top: 20px;
+  padding-bottom: 70px;
+`;
+
+export const Row = styled.View`
+  flex-direction: row;
+  gap: 20px;
+
+  margin-vertical: 20px;
+`;
+
+export const ActionsContainer = styled.View`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: ${SCREEN_WIDTH}px;
+  padding-horizontal: 20px;
+  padding-bottom: 20px;
 `;
