@@ -49,7 +49,7 @@ export function StopRegistrationScreen() {
       item => item.id === stop.idFarm
     );
 
-    return farm.fields.map(item => ({ value: item.id, label: item.name }));
+    return farm.fields?.map(item => ({ value: item.id, label: item.name }));
   }, [resources.farms, stop?.idFarm]);
 
   function handleUpdate(name: SelectFieldName) {
@@ -83,9 +83,17 @@ export function StopRegistrationScreen() {
   }
 
   function handleFinish() {
-    addStop(stop);
+    addStop({
+      ...stop,
+      latitude: 0,
+      longitude: 0,
+      minutes: stop?.minutes ?? 1,
+    });
     setStop(null);
-    navigation.goBack();
+
+    setTimeout(() => {
+      navigation.goBack();
+    }, 500);
   }
 
   return (
