@@ -20,6 +20,7 @@ module.exports = {
           "~/services": "./src/services/",
           "~/theme": "./src/theme/",
           "~/hooks": "./src/hooks/",
+          "~/utils": "./src/utils/",
         },
       },
     ],
