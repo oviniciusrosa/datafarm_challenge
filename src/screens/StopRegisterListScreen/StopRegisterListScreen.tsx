@@ -18,7 +18,7 @@ export function StopRegisterListScreen() {
         return item;
       }
     });
-  }, [search]);
+  }, [search, stops]);
 
   return (
     <S.Container entering={EntranceFadeIn}>

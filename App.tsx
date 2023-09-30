@@ -14,6 +14,7 @@ import theme from "./src/theme";
 import ResourcesProvider from "~/contexts/resources";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { StopRunning } from "~/components";
 
 function App(): JSX.Element {
   useEffect(function initializeDb() {
@@ -31,6 +32,7 @@ function App(): JSX.Element {
       <ResourcesProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <BottomSheetModalProvider>
+            <StopRunning />
             <Routes />
           </BottomSheetModalProvider>
         </GestureHandlerRootView>

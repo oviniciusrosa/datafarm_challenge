@@ -23,7 +23,7 @@ export function StopRegistrationScreen() {
   const [stop, setStop] = useState<IStop | null>();
 
   const navigation = useNavigation();
-  const { resources } = useResources();
+  const { resources, addStop } = useResources();
 
   const goBack = () => navigation.goBack();
 
@@ -82,6 +82,12 @@ export function StopRegistrationScreen() {
     }));
   }
 
+  function handleFinish() {
+    addStop(stop);
+    setStop(null);
+    navigation.goBack();
+  }
+
   return (
     <S.Container>
       <S.Header>
@@ -121,7 +127,7 @@ export function StopRegistrationScreen() {
 
         <S.ActionsContainer>
           <TimeSetter onChange={handleMinute} />
-          <Button onPress={() => console.log(stop)} style={{ flex: 1 }}>
+          <Button onPress={handleFinish} style={{ flex: 1 }}>
             Salvar
           </Button>
         </S.ActionsContainer>

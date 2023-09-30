@@ -6,3 +6,4 @@ export * from "./Divider";
 export * from "./SearchInput";
 export * from "./Sheet";
 export * from "./Select";
+export * from "./StopRunning";
