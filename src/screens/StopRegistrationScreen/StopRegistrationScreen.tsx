@@ -1,4 +1,4 @@
-import { TouchableOpacity } from "react-native";
+import { KeyboardAvoidingView, TouchableOpacity } from "react-native";
 import { Button, Typography } from "~/components";
 
 import { Select } from "~/components";
@@ -12,7 +12,9 @@ import { useNavigation } from "@react-navigation/native";
 import { useMemo, useState } from "react";
 import { IOption } from "~/components/Select/@types";
 import { IStop } from "~/models/IStops";
-import { SelectReason } from "./components";
+import { SelectReason, StopNotes } from "./components";
+import { useKeyboardOpenedListenable } from "~/hooks/useKeyboardOpenedListenable";
+import { useKeyboardDismissListenable } from "~/hooks/useKeyboardDismissListenable";
 
 const { Heading } = Typography;
 
@@ -20,6 +22,10 @@ type SelectFieldName = "idFarm" | "idField" | "idMachinery" | "idReason";
 
 export function StopRegistrationScreen() {
   const [stop, setStop] = useState<IStop | null>(null);
+
+  const [hideActions, setHideActions] = useState<boolean>(false);
+  useKeyboardOpenedListenable(() => setHideActions(true));
+  useKeyboardDismissListenable(() => setHideActions(false));
 
   const navigation = useNavigation();
   const { resources } = useResources();
@@ -57,6 +63,13 @@ export function StopRegistrationScreen() {
     }));
   }
 
+  function handleChangeNote(note: string) {
+    setStop(current => ({
+      ...current,
+      note,
+    }));
+  }
+
   return (
     <S.Container>
       <S.Header>
@@ -66,7 +79,7 @@ export function StopRegistrationScreen() {
         <Heading>Registro de Parada</Heading>
       </S.Header>
 
-      <S.ScrollableContent>
+      <S.ScrollableContent showsVerticalScrollIndicator={false}>
         <Select
           label="Equipamento"
           onChange={handleUpdate("idMachinery")}
@@ -90,11 +103,15 @@ export function StopRegistrationScreen() {
         </S.Row>
 
         <SelectReason onChange={handleChangeReason} />
+
+        <StopNotes onChange={handleChangeNote} />
       </S.ScrollableContent>
 
-      <S.ActionsContainer>
-        <Button onPress={() => console.log(stop)}>Salvar</Button>
-      </S.ActionsContainer>
+      {!hideActions && (
+        <S.ActionsContainer>
+          <Button onPress={() => console.log(stop)}>Salvar</Button>
+        </S.ActionsContainer>
+      )}
     </S.Container>
   );
 }
