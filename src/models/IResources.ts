@@ -3,7 +3,7 @@ import { IFields } from "./IFields";
 import { IMachineries } from "./IMachineries";
 import { IReasons } from "./IReasons";
 
-type IResourceField = Omit<IFields, "idFarm">;
+export type IResourceField = Omit<IFields, "idFarm">;
 
 export type IResourceFarm = Omit<IFarms, "fields"> & {
   fields: IResourceField[];

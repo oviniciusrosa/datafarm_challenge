@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { LoginScreen } from "../screens/LoginScreen";
 import { HomeTabs } from "./tabs/HomeTabs";
 import theme from "~/theme";
+import { SplashScreen } from "~/screens/SplashScreen";
 
 const RootStack = createStackNavigator();
 
@@ -19,6 +20,11 @@ export function Routes() {
   return (
     <NavigationContainer theme={MyTheme}>
       <RootStack.Navigator>
+        <RootStack.Screen
+          name="Splash"
+          component={SplashScreen}
+          options={{ headerShown: false }}
+        />
         <RootStack.Screen
           name="Login"
           component={LoginScreen}
