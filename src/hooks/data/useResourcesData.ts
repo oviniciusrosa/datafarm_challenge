@@ -6,30 +6,17 @@ import { IFields } from "~/models/IFields";
 import { IFarms } from "~/models/IFarms";
 import { IMachineries } from "~/models/IMachineries";
 import { IReasons } from "~/models/IReasons";
+import { FarmFormatter } from "~/utils/formatters/FarmFormatter";
 
 export function useResourcesData() {
   const farmsDataAccess = useFarmData();
   const machineriesDataAccess = useMachineryData();
   const reasonsDataAccess = useReasonData();
 
-  function formatFarms(farms: IResourceFarm[]): IFarms[] {
-    let formattedFarms: IFarms[] = [];
-
-    farms.forEach(farm => {
-      const currentFields: IFields[] = farm.fields.map(field => ({
-        ...field,
-        idFarm: farm.id,
-      }));
-
-      const currentFarm = { ...farm, fields: currentFields };
-      formattedFarms = [...formattedFarms, currentFarm];
-    });
-
-    return formattedFarms;
-  }
-
   async function insertResources(resources: IResources) {
-    const formattedFarms: IFarms[] = formatFarms(resources.farms);
+    const formattedFarms: IFarms[] = resources.farms.map(farm =>
+      FarmFormatter.fromResource(farm)
+    );
 
     await Promise.all([
       farmsDataAccess.insertAll(formattedFarms),
