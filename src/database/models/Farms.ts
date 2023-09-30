@@ -16,6 +16,7 @@ export class Farms extends BaseEntity {
 
   @OneToMany(_ => Fields, fields => fields.farm, {
     cascade: true,
+    eager: true,
   })
   @JoinColumn()
   fields: Fields[];
