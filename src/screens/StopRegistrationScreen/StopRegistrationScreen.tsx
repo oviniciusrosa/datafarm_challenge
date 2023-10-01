@@ -36,7 +36,7 @@ export function StopRegistrationScreen() {
   const [stop, setStop] = useState<IStop | null>();
 
   const navigation = useNavigation();
-  const { resources, addStop } = useResources();
+  const { resources, addStop, activeStop } = useResources();
 
   const goBack = () => navigation.goBack();
 
@@ -83,6 +83,12 @@ export function StopRegistrationScreen() {
   async function handleFinish() {
     try {
       setLoading(true);
+
+      if (!!activeStop) {
+        return setErrorMessage(
+          "Não é possível registrar nova parada, pois há uma em andamento..."
+        );
+      }
 
       const error = validateStopRegistration(stop);
       if (!!error) return setErrorMessage(error);
