@@ -25,6 +25,7 @@ export default {
 
     background: "#FFF",
 
+    info: "#007bff",
     success: "#28a745",
     danger: "#DC3545",
     warning: "#EEAB00",
