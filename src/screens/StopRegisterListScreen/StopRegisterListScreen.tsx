@@ -1,4 +1,4 @@
-import { SearchInput } from "~/components";
+import { Button, Empty, OutlineButton, SearchInput } from "~/components";
 import { StopList } from "./components";
 import * as S from "./styles";
 import { useMemo, useState } from "react";
@@ -28,7 +28,8 @@ export function StopRegisterListScreen() {
         placeholder="Localizar registros..."
         style={{ marginTop: 30, marginBottom: 20 }}
       />
-      <StopList list={filteredList} />
+
+      {stops.length === 0 ? <Empty /> : <StopList list={filteredList} />}
     </S.Container>
   );
 }
