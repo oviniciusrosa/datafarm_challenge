@@ -3,7 +3,7 @@ import { DataSource } from "typeorm";
 import { TABLE_LIST } from "./constants/table";
 
 export const dataSource = new DataSource({
-  database: "quicksqlitetest-typeorm.db",
+  database: "datafarm_app.db",
   entities: TABLE_LIST,
   location: ".",
   logging: [],

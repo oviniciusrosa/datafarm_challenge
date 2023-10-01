@@ -22,14 +22,11 @@ export function SplashScreen() {
   }, [isAuthenticated]);
 
   const initialize = useCallback(async () => {
-    const connect = async () => {
-      await dataSource.initialize();
-      await fillResources();
-    };
-
     if (!dataSource.isInitialized) {
-      connect();
+      await dataSource.initialize();
     }
+
+    await fillResources();
 
     setTimeout(handleNavigate, 1000);
   }, [handleNavigate]);
