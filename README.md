@@ -36,7 +36,7 @@ Para a interface de usuário, segui as guidelines dos _prints_ apresentados na d
 - SplashPage customizada;
 - Modais de resposta à interação do usuário;
 - Banner representando a situação da conexão do usuário;
-- E animações utilizando Lottie.
+- E animações utilizando Lottie e Reanimated.
 
 ![ui-design](https://imgur.com/gDhPelW.png)
 
