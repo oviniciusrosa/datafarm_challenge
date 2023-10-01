@@ -1,79 +1,71 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Desafio: Registro de Paradas 🚜
 
-# Getting Started
+Esse projeto faz parte de um desafio ao qual eu tive o prazer de participar para desenvolvedor **React Native** na **DataFarm**. O desafio consiste em criar um aplicativo para registrar as vezes que o usuário parou sua atividade na lavoura por qualquer que seja o motivo. O usuário deve informar o equipamento utilizado, a fazenda e o talhão onde estava ocorrendo a atividade. Além disso deve informar o motivo da parada/pausa, além de uma estimativa do tempo que a pausa durará e uma possível nota/observação sobre o ocorrido.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+**_Techs:_**
 
-## Step 1: Start the Metro Server
+- React Native;
+- React Navigation;
+- Styled-components;
+- MMKV;
+- Quick SQLite;
+- TypeORM;
+- Reanimated v3;
+- Lottie.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Overview
 
-To start Metro, run the following command from the _root_ of your React Native project:
+Durante a implementação tentei me ater ao máximo à [nova arquitetura do React Native](https://reactnative.dev/docs/next/the-new-architecture/landing-page), utilizando de bibliotecas como **MMKV**, **Quick SQLite** e **Reanimated v3** que usam [JSI e Turbo Modules](https://reactnative.dev/docs/next/the-new-architecture/pillars-turbomodules) para realizar a comunicação com entidades nativas.
 
-```bash
-# using npm
-npm start
+O motivo da escolha foi o ganho de performance comparado com abordagens que utilizam a arquitetura antiga com a _"bridge"_ onde o _bundle javascript_ se comunica com módulos nativos por meio da serialização de _JSON_.
 
-# OR using Yarn
-yarn start
-```
+Observe a comparação de performance de alguma das bibliotecas citadas:
 
-## Step 2: Start your Application
+- _QuickSQLite_ vs _SQLite_ (ambos utilizando _TypeORM_)
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+![quick-sqlite-performance](https://imgur.com/YxRpiKQ.png)
 
-### For Android
+- _MMKV_ vs Bibliotecas populares de armazenamento local
 
-```bash
-# using npm
-npm run android
+![mmkv-performance](https://i.imgur.com/7SWff0m.png)
 
-# OR using Yarn
-yarn android
-```
+## UI design
 
-### For iOS
+Para a interface de usuário, segui as guidelines dos _prints_ apresentados na descrição do desafio. Entretanto, tomei a liberdade de adicionar algumas coisas como:
 
-```bash
-# using npm
-npm run ios
+- SplashPage customizada;
+- Modais de resposta à interação do usuário;
+- Banner representando a situação da conexão do usuário;
+- E animações utilizando Lottie.
 
-# OR using Yarn
-yarn ios
-```
+![ui-design](https://imgur.com/gDhPelW.png)
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Offline-first
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+Um diferencial deste desafio era permitir a utilização do aplicativo sem conexão com a internet. Para resolver este problema utilizei uma fila de execução que seria a responsável por atualizar os dados com o servidor enquanto o app se comunica diretamente com o banco de dados local. Observe:
 
-## Step 3: Modifying your App
+![database_sync](https://i.imgur.com/KfDpGIu.png)
 
-Now that you have successfully run the app, let's modify it.
+Como a imagem acima sugera, o app se comunica diretamente com o banco de dados a maior parte do tempo, porém, à cada atualização do registro de parada um novo conteúdo é adicionado à [fila de execução](https://github.com/oviniciusrosa/datafarm_challenge/blob/main/src/contexts/execution_queue.tsx). O conteúdo adicionado descreve o envio à _API_, contendo o método _HTTP_, o endpoint da _API_ e o dado em si.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+Após receber o conteúdo, a fila verifica a conexão do usuário. Caso o app possua conexão com a internet, a fila já executa o envio da informação. Caso contrário, a fila armazena o conteúdo numa tabela do banco de dados e, assim que a conexão é recuperada, essa tabela é lida e executada.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+Normalmente, esta estrutura possui um módulo de reconciliação dos dados, onde é feita uma comparação com o dado que veio do servidor e os dados enviados a fim de manter a confiabilidade da informação. Entretanto, não foi necessário neste caso, pois o aplicativo não obtém os registros de paradas anteriormente enviados, apenas armazena localmente.
 
-## Congratulations! :tada:
+## Como rodar
 
-You've successfully run and modified your React Native App. :partying_face:
+Primeiro, é necessário clonar o repositório:
 
-### Now what?
+> git clone https://github.com/oviniciusrosa/datafarm_challenge.git
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+Em seguida, instalamos as dependências do projeto:
 
-# Troubleshooting
+> yarn install
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+Então, executamos o app com o seguinte comando:
 
-# Learn More
+> yarn android
 
-To learn more about React Native, take a look at the following resources:
+**OBS:**É importante salientar que, seguindo as exigências do desafio, o app foi feito para o sistema operacional _android_. Ao executar o aplicativo no iOS o usuário pode se deparar com uma experiência instável.
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+**Aproveite!! 😊**
