@@ -13,6 +13,8 @@ export interface IStop {
   minutes: number;
   longitude: number;
   latitude: number;
+
+  createdAt?: any;
 }
 
 export interface IStopFilled {
@@ -27,4 +29,6 @@ export interface IStopFilled {
   minutes: number;
   longitude: number;
   latitude: number;
+
+  createdAt?: any;
 }

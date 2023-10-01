@@ -30,6 +30,7 @@ export class StopFormatter {
       longitude: stop.longitude,
       minutes: stop.minutes,
       note: stop.note,
+      createdAt: stop.createdAt,
       reason: resourceReason,
       machinery: resourceMachinery,
       farm: formattedFarm,

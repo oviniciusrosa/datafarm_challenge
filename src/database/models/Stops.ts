@@ -1,6 +1,11 @@
-import { Entity, Column, BaseEntity, Generated, PrimaryColumn } from "typeorm";
-
-/// TODO: Adicionar createdAt
+import {
+  Entity,
+  Column,
+  BaseEntity,
+  Generated,
+  PrimaryColumn,
+  CreateDateColumn,
+} from "typeorm";
 
 @Entity("stops")
 export class Stops extends BaseEntity {
@@ -15,4 +20,7 @@ export class Stops extends BaseEntity {
   @Column("int") minutes: number;
   @Column("float") longitude: number;
   @Column("float") latitude: number;
+
+  @CreateDateColumn({ name: "create_time" })
+  public createdAt: Date;
 }
