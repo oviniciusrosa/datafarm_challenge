@@ -1,6 +1,6 @@
 # Desafio: Registro de Paradas 🚜
 
-Esse projeto faz parte de um desafio ao qual eu tive o prazer de participar para desenvolvedor **React Native** na **DataFarm**. O desafio consiste em criar um aplicativo para registrar as vezes que o usuário parou sua atividade na lavoura por qualquer que seja o motivo. O usuário deve informar o equipamento utilizado, a fazenda e o talhão onde estava ocorrendo a atividade. Além disso deve informar o motivo da parada/pausa, além de uma estimativa do tempo que a pausa durará e uma possível nota/observação sobre o ocorrido.
+Esse projeto faz parte do desafio para desenvolvedor **React Native** na **DataFarm**, ao qual eu tive o prazer de participar. O desafio consiste em criar um aplicativo para registrar as vezes que o usuário parou sua atividade na lavoura por qualquer que seja o motivo. O usuário deve informar o equipamento utilizado, a fazenda e o talhão onde estava ocorrendo a atividade. Além disso deve informar o motivo da parada/pausa, além de uma estimativa do tempo que a pausa durará e uma possível nota/observação sobre o ocorrido.
 
 **_Techs:_**
 
