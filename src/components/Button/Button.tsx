@@ -13,3 +13,11 @@ export function Button({ children, onPress, ...rest }: Props) {
     </S.Button>
   );
 }
+
+export function OutlineButton({ children, onPress, ...rest }: Props) {
+  return (
+    <S.OutlineButton onPress={onPress} activeOpacity={0.7} {...rest}>
+      <S.OutlineLabel>{children}</S.OutlineLabel>
+    </S.OutlineButton>
+  );
+}
