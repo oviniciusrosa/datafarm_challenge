@@ -39,16 +39,11 @@ export function LoginScreen() {
   const isLoading: boolean = loadingResources || loadingAuthentication;
 
   async function submit() {
-    // if (email === "" || password === "") {
-    //   return setErrorModal(true);
-    // }
+    if (email === "" || password === "") {
+      return setErrorModal(true);
+    }
 
-    // const { data } = await login({ email, senha: password, idPartner: 372 });
-    const { data } = await login({
-      email: "bakavini99@gmail.com",
-      senha: "FyDYadHzQFFVZgyn@o6Data@2023",
-      idPartner: 372,
-    });
+    const { data } = await login({ email, senha: password, idPartner: 372 });
 
     if (!!data) {
       authenticate(data.token);
