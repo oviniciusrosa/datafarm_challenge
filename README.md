@@ -46,7 +46,7 @@ Um diferencial deste desafio era permitir a utilização do aplicativo sem conex
 
 ![database_sync](https://i.imgur.com/KfDpGIu.png)
 
-Como a imagem acima sugera, o app se comunica diretamente com o banco de dados a maior parte do tempo, porém, à cada atualização do registro de parada um novo conteúdo é adicionado à [fila de execução](https://github.com/oviniciusrosa/datafarm_challenge/blob/main/src/contexts/execution_queue.tsx). O conteúdo adicionado descreve o envio à _API_, contendo o método _HTTP_, o endpoint da _API_ e o dado em si.
+Como a imagem acima sugere, o app se comunica diretamente com o banco de dados a maior parte do tempo, porém, à cada atualização do registro de parada um novo conteúdo é adicionado à [fila de execução](https://github.com/oviniciusrosa/datafarm_challenge/blob/main/src/contexts/execution_queue.tsx). O conteúdo adicionado descreve o envio à _API_, contendo o método _HTTP_, o endpoint da _API_ e o dado em si.
 
 Após receber o conteúdo, a fila verifica a conexão do usuário. Caso o app possua conexão com a internet, a fila já executa o envio da informação. Caso contrário, a fila armazena o conteúdo numa tabela do banco de dados e, assim que a conexão é recuperada, essa tabela é lida e executada.
 
@@ -66,6 +66,6 @@ Então, executamos o app com o seguinte comando:
 
 > yarn android
 
-**OBS:**É importante salientar que, seguindo as exigências do desafio, o app foi feito para o sistema operacional _android_. Ao executar o aplicativo no iOS o usuário pode se deparar com uma experiência instável.
+**OBS:** É importante salientar que, seguindo as exigências do desafio, o app foi feito para o sistema operacional _android_. Ao executar o aplicativo no _iOS_ o usuário pode se deparar com uma experiência instável.
 
 **Aproveite!! 😊**
