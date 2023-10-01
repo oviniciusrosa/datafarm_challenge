@@ -11,6 +11,11 @@ interface Props {
 export function StopNotes({ onChange }: Props) {
   const [note, setNote] = useState<string>("");
 
+  function handleChange(text: string) {
+    setNote(text);
+    onChange(text);
+  }
+
   return (
     <S.Container>
       <S.Header>
@@ -21,9 +26,8 @@ export function StopNotes({ onChange }: Props) {
       <S.TextArea
         multiline={true}
         numberOfLines={4}
-        onChangeText={setNote}
+        onChangeText={handleChange}
         value={note}
-        onEndEditing={() => onChange(note)}
         placeholder="Escrever nota..."
       />
     </S.Container>
