@@ -17,6 +17,7 @@ import { IResourceFarm } from "~/models/IResources";
 import { validateStopRegistration } from "./validation";
 import { Modal } from "~/components/Modal";
 import GetLocation from "react-native-get-location";
+import { promptForEnableLocationIfNeeded } from "react-native-android-location-enabler";
 
 const { Heading } = Typography;
 
@@ -92,6 +93,13 @@ export function StopRegistrationScreen() {
 
       const error = validateStopRegistration(stop);
       if (!!error) return setErrorMessage(error);
+
+      const enableResult = await promptForEnableLocationIfNeeded();
+      if (!["already-enabled", "enabled"].includes(enableResult)) {
+        return setErrorMessage(
+          "O serviço de localização precisa estar ativado para continuar!"
+        );
+      }
 
       const { latitude, longitude } = await GetLocation.getCurrentPosition({
         enableHighAccuracy: true,
