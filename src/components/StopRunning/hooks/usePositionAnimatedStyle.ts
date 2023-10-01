@@ -5,7 +5,6 @@ import {
   withTiming,
 } from "react-native-reanimated";
 import { DefaultStyle } from "react-native-reanimated/lib/typescript/reanimated2/hook/commonTypes";
-import theme from "~/theme";
 
 type AnimatedStyle = [
   DefaultStyle,
