@@ -25,6 +25,7 @@ export function HomeTabs() {
         component={StopRegisterListScreen}
         options={{
           tabBarIcon: ({ color }) => <Icons.Clock color={color} />,
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen
@@ -32,6 +33,7 @@ export function HomeTabs() {
         component={StopRegistrationScreen}
         options={{
           tabBarIcon: ({ color }) => <Icons.List color={color} />,
+          unmountOnBlur: true,
         }}
       />
     </Tab.Navigator>
