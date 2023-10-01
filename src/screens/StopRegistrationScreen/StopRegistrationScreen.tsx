@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Button, Typography } from "~/components";
 
 import { Select } from "~/components";
@@ -14,12 +14,25 @@ import { IOption } from "~/components/Select/@types";
 import { IStop } from "~/models/IStops";
 import { SelectReason, StopNotes, TimeSetter } from "./components";
 import { IResourceFarm } from "~/models/IResources";
+import { validateStopRegistration } from "./validation";
+import { Modal } from "~/components/Modal";
+import GetLocation from "react-native-get-location";
 
 const { Heading } = Typography;
 
-type SelectFieldName = "idFarm" | "idField" | "idMachinery" | "idReason";
+type SelectFieldName =
+  | "idFarm"
+  | "idField"
+  | "idMachinery"
+  | "idReason"
+  | "note"
+  | "minutes"
+  | "longitude"
+  | "latitude";
 
 export function StopRegistrationScreen() {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [stop, setStop] = useState<IStop | null>();
 
   const navigation = useNavigation();
@@ -53,47 +66,48 @@ export function StopRegistrationScreen() {
   }, [resources.farms, stop?.idFarm]);
 
   function handleUpdate(name: SelectFieldName) {
-    return function (option: IOption) {
+    return function (value: string | number) {
       setStop(current => ({
         ...current,
-        [name]: option.value,
+        [name]: value,
       }));
     };
   }
 
-  function handleChangeReason(id: number | null) {
-    setStop(current => ({
-      ...current,
-      idReason: id,
-    }));
+  function handleSelect(name: SelectFieldName) {
+    return function (option: IOption) {
+      handleUpdate(name)(option.value);
+    };
   }
 
-  function handleChangeNote(note: string) {
-    setStop(current => ({
-      ...current,
-      note,
-    }));
-  }
+  async function handleFinish() {
+    try {
+      setLoading(true);
 
-  function handleMinute(minutes: number) {
-    setStop(current => ({
-      ...current,
-      minutes,
-    }));
-  }
+      const error = validateStopRegistration(stop);
+      if (!!error) return setErrorMessage(error);
 
-  function handleFinish() {
-    addStop({
-      ...stop,
-      latitude: 0,
-      longitude: 0,
-      minutes: stop?.minutes ?? 1,
-    });
-    setStop(null);
+      const { latitude, longitude } = await GetLocation.getCurrentPosition({
+        enableHighAccuracy: true,
+        timeout: 10000,
+      });
 
-    setTimeout(() => {
-      navigation.goBack();
-    }, 500);
+      await addStop({
+        ...stop,
+        latitude,
+        longitude,
+        minutes: stop?.minutes ?? 5,
+      });
+
+      setTimeout(() => {
+        navigation.goBack();
+      }, 500);
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Não foi possível concluir o registro da parada...");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -108,7 +122,7 @@ export function StopRegistrationScreen() {
       <S.ScrollableContent showsVerticalScrollIndicator={false}>
         <Select
           label="Equipamento"
-          onChange={handleUpdate("idMachinery")}
+          onChange={handleSelect("idMachinery")}
           options={machineries}
           style={{ marginTop: 8 }}
         />
@@ -116,30 +130,38 @@ export function StopRegistrationScreen() {
         <S.Row>
           <Select
             label="Fazenda"
-            onChange={handleUpdate("idFarm")}
+            onChange={handleSelect("idFarm")}
             options={farms}
             style={{ flex: 5 }}
           />
           <Select
             key={stop?.idFarm}
             label="Talhão"
-            onChange={handleUpdate("idField")}
+            onChange={handleSelect("idField")}
             options={fields}
             style={{ flex: 2 }}
           />
         </S.Row>
 
-        <SelectReason onChange={handleChangeReason} />
+        <SelectReason onChange={handleUpdate("idReason")} />
 
-        <StopNotes onChange={handleChangeNote} />
+        <StopNotes onChange={handleUpdate("note")} />
 
         <S.ActionsContainer>
-          <TimeSetter onChange={handleMinute} />
+          <TimeSetter onChange={handleUpdate("minutes")} />
           <Button onPress={handleFinish} style={{ flex: 1 }}>
             Salvar
           </Button>
         </S.ActionsContainer>
       </S.ScrollableContent>
+
+      <Modal.Error
+        open={!!errorMessage}
+        onClose={() => setErrorMessage(null)}
+        message={errorMessage}
+      />
+
+      <Modal.Loading open={loading} />
     </S.Container>
   );
 }
