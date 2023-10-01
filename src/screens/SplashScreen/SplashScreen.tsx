@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import { dataSource } from "~/database/connection";
 import LogoImg from "~/assets/images/logo-white.png";
@@ -6,12 +6,22 @@ import LogoImg from "~/assets/images/logo-white.png";
 import * as S from "./styles";
 import { useResources } from "~/contexts/resources";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "~/contexts/authentication";
 
 export function SplashScreen() {
   const navigation = useNavigation();
   const { fillResources } = useResources();
+  const { isAuthenticated } = useAuth();
 
-  useEffect(() => {
+  const handleNavigate = useCallback(() => {
+    if (isAuthenticated) {
+      navigation.navigate("Home");
+    } else {
+      navigation.navigate("Login");
+    }
+  }, [isAuthenticated]);
+
+  const initialize = useCallback(async () => {
     const connect = async () => {
       await dataSource.initialize();
       await fillResources();
@@ -19,12 +29,13 @@ export function SplashScreen() {
 
     if (!dataSource.isInitialized) {
       connect();
-
-      /// TODO: Verificar se está autenticado
-      setTimeout(() => {
-        navigation.navigate("Login");
-      }, 1000);
     }
+
+    setTimeout(handleNavigate, 1000);
+  }, [handleNavigate]);
+
+  useEffect(() => {
+    initialize();
   }, []);
 
   return (

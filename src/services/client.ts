@@ -11,7 +11,7 @@ export const apiClient = axios.create({ baseURL: BASE_URL });
 apiClient.interceptors.request.use(
   function (config) {
     if (jwtToken) {
-      config.headers["Authorization"] = "Bearer " + jwtToken;
+      config.headers["TokenAuthorization"] = jwtToken;
     }
     return config;
   },

@@ -1,5 +1,5 @@
 import { storage } from "~/external/storage";
-import { JWTTOKEN_KEYNAME } from "../constants/localStorageKeys";
+import { JWTTOKEN_KEYNAME } from "~/constants/LocalStorageKeys";
 
 export const jwtToken = storage.getString(JWTTOKEN_KEYNAME);
 
