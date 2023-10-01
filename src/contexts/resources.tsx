@@ -4,6 +4,7 @@ import { useStopData } from "~/hooks/data/useStopData";
 import { IResources } from "~/models/IResources";
 import { IStop, IStopFilled } from "~/models/IStops";
 import { StopFormatter } from "~/utils/formatters/StopFormatter";
+import { useExecQueue } from "./execution_queue";
 
 interface ResourcesContextProps {
   addStop(stop: IStop): Promise<void>;
@@ -22,6 +23,7 @@ const ResourcesContext = createContext<ResourcesContextProps>(
 type Props = { children: ReactNode };
 
 export default function ResourcesProvider({ children }: Props) {
+  const { addToQueue } = useExecQueue();
   const stopData = useStopData();
   const { insertResources, getResources } = useResourcesData();
 
@@ -31,8 +33,14 @@ export default function ResourcesProvider({ children }: Props) {
   const [stops, setStops] = useState<IStopFilled[]>([]);
 
   async function addStop(stop: IStop) {
-    await stopData.save(stop);
-    const filledStop = StopFormatter.fill(stop, resources);
+    const inserted = await stopData.save(stop);
+
+    await addToQueue({
+      data: JSON.stringify(inserted),
+      endpoint: "/mobile/machine/stop-register/registry",
+      httpMethod: "post",
+    });
+    const filledStop = StopFormatter.fill(inserted, resources);
 
     setActiveStop(filledStop);
   }
