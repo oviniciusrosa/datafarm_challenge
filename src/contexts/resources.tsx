@@ -12,6 +12,7 @@ interface ResourcesContextProps {
   stops: IStopFilled[];
   resources: IResources | null;
   fillResources(): Promise<void>;
+  insertResources: (resources: IResources) => Promise<void>;
 }
 
 const ResourcesContext = createContext<ResourcesContextProps>(
@@ -66,6 +67,7 @@ export default function ResourcesProvider({ children }: Props) {
         resources,
         finishStop,
         fillResources,
+        insertResources,
       }}>
       {children}
     </ResourcesContext.Provider>

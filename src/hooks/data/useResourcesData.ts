@@ -2,7 +2,6 @@ import { IResourceFarm, IResourceField, IResources } from "~/models/IResources";
 import { useFarmData } from "./useFarmData";
 import { useMachineryData } from "./useMachineryData";
 import { useReasonData } from "./useReasonData";
-import { IFields } from "~/models/IFields";
 import { IFarms } from "~/models/IFarms";
 import { IMachineries } from "~/models/IMachineries";
 import { IReasons } from "~/models/IReasons";

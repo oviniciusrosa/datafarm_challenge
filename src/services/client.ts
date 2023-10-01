@@ -1,5 +1,5 @@
 import axios from "axios";
-import { jwtToken } from "./auth";
+import { getJwtToken } from "./auth";
 
 export const PROTOCOL = "https";
 export const SERVER = "job.minhafazenda.ag";
@@ -10,8 +10,8 @@ export const apiClient = axios.create({ baseURL: BASE_URL });
 
 apiClient.interceptors.request.use(
   function (config) {
-    if (jwtToken) {
-      config.headers["TokenAuthorization"] = jwtToken;
+    if (!!getJwtToken()) {
+      config.headers["TokenAuthorization"] = getJwtToken();
     }
     return config;
   },

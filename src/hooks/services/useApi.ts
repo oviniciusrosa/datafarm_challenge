@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { AxiosRequestConfig } from "axios";
-import { jwtToken } from "~/services/auth";
+import { getJwtToken } from "~/services/auth";
 import { apiClient } from "~/services/client";
 
 type HttpMethod = "get" | "post" | "put" | "patch" | "delete";
@@ -11,7 +11,21 @@ interface RequestProps {
   config?: AxiosRequestConfig;
 }
 
-export function useApi() {
+type ApiAccesProps = [
+  {
+    post: <T>(props: RequestProps) => Promise<T>;
+    get: <T>(props: RequestProps) => Promise<T>;
+    put: <T>(props: RequestProps) => Promise<T>;
+    patch: <T>(props: RequestProps) => Promise<T>;
+    delete: <T>(props: RequestProps) => Promise<T>;
+  },
+  {
+    loading: boolean;
+    error: string | null;
+  }
+];
+
+export function useApi(): ApiAccesProps {
   const [error, setError] = useState<string | null>(null);
   const [loading, isLoading] = useState<boolean>(false);
 
@@ -34,7 +48,7 @@ export function useApi() {
       data,
       headers: {
         Accept: "application/json, text/plain, */*",
-        Authorization: `${"Bearer " + jwtToken}`,
+        TokenAuthorization: `${"Bearer " + getJwtToken()}`,
       },
     });
   }

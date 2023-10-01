@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { jwtToken, saveToken } from "~/services/auth";
+import { getJwtToken, saveToken } from "~/services/auth";
 
 interface AuthContextProps {
   isAuthenticated: boolean;
@@ -11,7 +11,9 @@ const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 type Props = { children: ReactNode };
 
 export default function AuthProvider({ children }: Props) {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!jwtToken);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    !!getJwtToken()
+  );
 
   function authenticate(token: string) {
     saveToken(token);
