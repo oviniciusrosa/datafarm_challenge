@@ -22,7 +22,7 @@ export const Overlay = styled.Pressable`
 export const Card = styled(Animated.View)`
   background-color: ${({ theme }) => theme.colors.white};
 
-  min-width: 85%;
+  width: 90%;
   padding: 20px;
   border-radius: 8px;
 `;
